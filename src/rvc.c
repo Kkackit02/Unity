@@ -190,6 +190,7 @@ int GetInput(char **input_Array)
             }
         }
 #endif
+
         if (strlen(input) == 4 &&
             (input[0] == '0' || input[0] == '1') &&
             (input[1] == '0' || input[1] == '1') &&
@@ -206,8 +207,12 @@ int GetInput(char **input_Array)
         else
         {
             printf("\nError: The input must be a 4-digit binary number consisting of only 0 and 1. Please try again. \nEach position corresponds to FLRD.\n");
-            while (getchar() != '\n')
-                ; // buffer init
+            //while (getchar() != '\n')
+                //; // buffer init
+
+#ifdef UNIT_TEST
+            return -1;
+#endif
         }
     }
 
@@ -216,6 +221,7 @@ int GetInput(char **input_Array)
 
 outputSet Main_Logic(char *input)
 {
+    memset(&outputSetVar, 0, sizeof(outputSetVar));
     // 1 : 테스트케이스일때, 입력을 받고, 끝낼 수 있어야함(지금은 계속 입력을 받으려고함)
     // 2 : 메인 자체가 겹쳐서, 유니티 프레임워크를 실행하는거를 어디든 넣어야함
 
@@ -301,6 +307,7 @@ outputSet Main_Logic(char *input)
         printf("\n");
         // wait(200);
     }
+    return outputSetVar;
 }
 
 #ifndef UNIT_TEST
